@@ -1,40 +1,40 @@
 #ifndef JACKREN_STACK
 #define JACKREN_STACK
 
-#include<cassert>
+#include "include.hpp"
 #include "vector.hpp"
 
 
-//æ ˆå®šä¹‰
+//Õ»¶¨Òå
 template<typename T>
 class Stack {
 private:
-	Vector<T> arr; //åˆ©ç”¨å‘é‡ä½œä¸ºå†…éƒ¨å®¹å™¨æ‰¿è½½æ ˆ
+	Vector<T> arr; //ÀûÓÃÏòÁ¿×÷ÎªÄÚ²¿ÈİÆ÷³ĞÔØÕ»
 public:
-	//é»˜è®¤æ„é€ å‡½æ•°
+	//Ä¬ÈÏ¹¹Ôìº¯Êı
 	Stack(){}
-	//å¤åˆ¶æ„é€ å‡½æ•°
+	//¸´ÖÆ¹¹Ôìº¯Êı
 	Stack(const Stack& S) {
 		arr = S.arr;
 	}
-	//é‡è½½=è¿ç®—ç¬¦ï¼Œå¯¹æ ˆè¿›è¡Œæµ…å¤åˆ¶
+	//ÖØÔØ=ÔËËã·û£¬¶ÔÕ»½øĞĞÇ³¸´ÖÆ
 	Stack& operator = (const Stack& S) {
 		arr = S.arr;
 		return *this;
 	}
-	//æ ˆåˆ¤ç©º
+	//Õ»ÅĞ¿Õ
 	bool empty() {
 		return arr.size() == 0;
 	}
-	//å‘æ ˆä¸­å‹å…¥å…ƒç´ 
+	//ÏòÕ»ÖĞÑ¹ÈëÔªËØ
 	void push(const T& value) {
 		arr.append(value);
 	}
-	//å…ƒç´ é€€æ ˆ
+	//ÔªËØÍËÕ»
 	bool pop() {
 		return arr.pop();
 	}
-	//è·å–æ ˆé¡¶
+	//»ñÈ¡Õ»¶¥
 	T& top() {
 		assert(!empty());
 		return arr[arr.size() - 1];

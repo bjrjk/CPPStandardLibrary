@@ -5,16 +5,16 @@
 #ifndef JACKREN_NODE
 #define JACKREN_NODE
 
-//å•é“¾è¡¨èŠ‚ç‚¹å®šä¹‰
+//µ¥Á´±í½Úµã¶¨Òå
 template<typename T>
 struct Node {
-	T data; //æ•°æ®åŸŸ
-	Node* next; //æŒ‡é’ˆåŸŸ
-	//é»˜è®¤æ„é€ å‡½æ•°
+	T data; //Êı¾İÓò
+	Node* next; //Ö¸ÕëÓò
+	//Ä¬ÈÏ¹¹Ôìº¯Êı
 	Node() :next(NULL) {}
-	//æ„é€ å‡½æ•°é‡è½½
+	//¹¹Ôìº¯ÊıÖØÔØ
 	Node(const T& data) :data(data), next(NULL) {}
-	//æ„é€ å‡½æ•°é‡è½½
+	//¹¹Ôìº¯ÊıÖØÔØ
 	Node(const T& data, Node* next) :data(data), next(next) {} 
 };
 

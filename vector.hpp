@@ -1,54 +1,53 @@
 #ifndef JACKREN_VECTOR
 #define JACKREN_VECTOR
 
-#include<iostream>
-#include<cstring>
-#include<algorithm>
-#include<cassert>
+#include "include.hpp"
+#include "algorithm.hpp"
 
 
-//å‘é‡å®šä¹‰
+
+//ÏòÁ¿¶¨Òå
 template<typename T>
 class Vector {
 private:
-	T* _arr; //æ•°ç»„æŒ‡é’ˆåœ°å€
-	int _size; //æ•°ç»„å¤§å°
-	int _capacity; //æ•°ç»„å®¹é‡
-	//è°ƒæ•´æ•°ç»„å®¹é‡(_capacity)ä¸ºsize
+	T* _arr; //Êı×éÖ¸ÕëµØÖ·
+	int _size; //Êı×é´óĞ¡
+	int _capacity; //Êı×éÈİÁ¿
+	//µ÷ÕûÊı×éÈİÁ¿(_capacity)Îªsize
 	void _resize(int size) {
 		T* newArr = new T[size];
-		std::memcpy(newArr, _arr, sizeof(T) * std::min(_size, size));
+		std::memcpy(newArr, _arr, sizeof(T) * min(_size, size));
 		delete[] _arr;
 		_arr = newArr;
 		_capacity = size;
 	}
 public:
-	//ææ„å‡½æ•°
+	//Îö¹¹º¯Êı
 	~Vector() {
 		delete[] _arr;
 	}
-	//é»˜è®¤æ„é€ å‡½æ•°
+	//Ä¬ÈÏ¹¹Ôìº¯Êı
 	Vector() {
 		_capacity = 10;
 		_arr = new T[_capacity];
 		_size = 0;
 	}
-	//å¤åˆ¶æ„é€ å‡½æ•°
+	//¸´ÖÆ¹¹Ôìº¯Êı
 	Vector(const Vector<T>& v) {
 		_capacity = v._size;
 		_size = v._size;
 		_arr = new T[_size];
 		std::memcpy(_arr, v._arr, sizeof(T) * _size);
 	}
-	//å‘é‡å¤§å°
-	int size() {
+	//ÏòÁ¿´óĞ¡
+	int size() const {
 		return _size;
 	}
-	//ç¼©å°å†…éƒ¨æ•°ç»„å ç”¨ç©ºé—´(shrink)
+	//ËõĞ¡ÄÚ²¿Êı×éÕ¼ÓÃ¿Õ¼ä(shrink)
 	void reduce() {
 		_resize(_size);
 	}
-	//æ•°ç»„å¢åŠ å¤§å°åˆ°size
+	//Êı×éÔö¼Ó´óĞ¡µ½size
 	void reserve(int size) {
 		if (size <= _capacity) {
 			_size = size;
@@ -57,7 +56,7 @@ public:
 		_resize(size);
 		_size = size;
 	}
-	//é‡è½½=è¿ç®—ç¬¦ï¼Œå®ç°æ•°ç»„çš„æµ…å¤åˆ¶
+	//ÖØÔØ=ÔËËã·û£¬ÊµÏÖÊı×éµÄÇ³¸´ÖÆ
 	Vector& operator = (const Vector& v) {
 		delete[] _arr;
 		_capacity = v._size;
@@ -66,31 +65,31 @@ public:
 		std::memcpy(_arr, v._arr, sizeof(T) * _size);
 		return *this;
 	}
-	//é‡è½½[]è¿ç®—ç¬¦ï¼Œèƒ½å¤Ÿä½¿è®¿é—®æ›´æ–¹ä¾¿
+	//ÖØÔØ[]ÔËËã·û£¬ÄÜ¹»Ê¹·ÃÎÊ¸ü·½±ã
 	T& operator [](int index) {
 		assert(0 <= index && index < _size);
 		return _arr[index];
 	}
-	//åœ¨å‘é‡æœ€åé™„åŠ æ•°æ®value
+	//ÔÚÏòÁ¿×îºó¸½¼ÓÊı¾İvalue
 	void append(const T& value) {
 		if (_size >= _capacity)_resize(2 * _capacity);
 		_arr[_size] = value;
 		_size++;
 	}
-	//åˆ é™¤å‘é‡ä¸­æœ€åä¸€ä¸ªæ•°æ®
+	//É¾³ıÏòÁ¿ÖĞ×îºóÒ»¸öÊı¾İ
 	bool pop() {
 		if (_size == 0)return false;
 		_size--;
 		return true;
 	}
-	//ç§»é™¤ä¸‹æ ‡indexå¤„çš„å…ƒç´ 
+	//ÒÆ³ıÏÂ±êindex´¦µÄÔªËØ
 	bool remove(int index) {
 		if (index < 0 || index >= _size)return false;
 		for (int i = index; i < _size; i++)_arr[i] = _arr[i + 1];
 		_size--;
 		return true;
 	}
-	//ç§»é™¤æ•°æ®ä¸ºvalueçš„å…ƒç´ ï¼Œå¦‚firstä¸º1ï¼Œåˆ™åªç§»é™¤ç¬¬ä¸€ä¸ªï¼Œå¦åˆ™ç§»é™¤æ‰€æœ‰
+	//ÒÆ³ıÊı¾İÎªvalueµÄÔªËØ£¬ÈçfirstÎª1£¬ÔòÖ»ÒÆ³ıµÚÒ»¸ö£¬·ñÔòÒÆ³ıËùÓĞ
 	bool remove(const T& value, bool first) {
 		bool flag = false;
 		for (int i = 0; i < _size; i++) {
@@ -103,8 +102,8 @@ public:
 		}
 		return flag;
 	}
-	//è¾“å‡ºå‘é‡å†…å®¹
-	void print() {
+	//Êä³öÏòÁ¿ÄÚÈİ
+	void print() const {
 		for (int i = 0; i < _size; i++)std::cout << _arr[i] << " ";
 		std::cout << "\n";
 	}

@@ -1,23 +1,23 @@
 #ifndef JACKREN_LIST
 #define JACKREN_LIST
 
+#include "include.hpp"
 #include "node.hpp"
-#include<iostream>
-#include<vector>
+#include "vector.hpp"
 
-//å•é“¾è¡¨å®šä¹‰
+//µ¥Á´±í¶¨Òå
 template <typename T>
 class List {
 private:
-	Node<T>* _head; //å¤´èŠ‚ç‚¹æŒ‡é’ˆ
-	//ä»ptrèŠ‚ç‚¹å¼€å§‹é€’å½’é”€æ¯æœ¬èº«åŠå…¶ä¹‹åçš„é“¾è¡¨èŠ‚ç‚¹
+	Node<T>* _head; //Í·½ÚµãÖ¸Õë
+	//´Óptr½Úµã¿ªÊ¼µİ¹éÏú»Ù±¾Éí¼°ÆäÖ®ºóµÄÁ´±í½Úµã
 	void _destory(Node<T>* ptr) {
 		if (ptr) {
 			_destory(ptr->next);
 			delete ptr;
 		}
 	}
-	//è·å–ä¸‹æ ‡ä¸ºindexå¤„çš„èŠ‚ç‚¹æŒ‡é’ˆ
+	//»ñÈ¡ÏÂ±êÎªindex´¦µÄ½ÚµãÖ¸Õë
 	Node<T>* _getAddrAtPos(int index) {
 		//Index start from 0, the index may equal -1 to get the position of the last element
 		if (_head->next == NULL)return NULL;
@@ -31,17 +31,17 @@ private:
 		if (index == -1)return ptr;
 		return NULL;
 	}
-	//åœ¨èŠ‚ç‚¹ptråæ’å…¥ä¸€æ•°æ®åŸŸä¸ºdataçš„æ–°èŠ‚ç‚¹
+	//ÔÚ½Úµãptrºó²åÈëÒ»Êı¾İÓòÎªdataµÄĞÂ½Úµã
 	Node<T>* _insert(Node<T>* ptr, const T& data) {
 		Node<T>* newNode = new Node<T>(data, ptr->next);
 		return ptr->next = newNode;
 	}
 public:
-	//æ„é€ å‡½æ•°
+	//¹¹Ôìº¯Êı
 	List() {
 		_head = new Node<T>;
 	}
-	//å¤åˆ¶æ„é€ å‡½æ•°
+	//¸´ÖÆ¹¹Ôìº¯Êı
 	List(const List& l) {
 		_head = new Node<T>;
 		Node<T>* oldPtr = l._head;
@@ -52,37 +52,37 @@ public:
 			oldPtr = oldPtr->next;
 		}
 	}
-	//ææ„å‡½æ•°
+	//Îö¹¹º¯Êı
 	~List() {
 		_destory(_head);
 	}
-	//æ¸…ç©ºå•é“¾è¡¨
+	//Çå¿Õµ¥Á´±í
 	void clear() {
 		if (_head->next)_destory(_head->next);
 	}
-	//å•é“¾è¡¨åˆ¤ç©º
+	//µ¥Á´±íÅĞ¿Õ
 	bool empty() {
 		return _head->next == NULL;
 	}
-	//å•é“¾è¡¨å¤§å°
+	//µ¥Á´±í´óĞ¡
 	int size() {
 		int cnts = 0;
 		for (Node<T>* ptr = _head; ptr->next; ptr = ptr->next, cnts++);
 		return cnts;
 	}
-	//åœ¨å•é“¾è¡¨æœ€åé™„åŠ ä¸€æ•°æ®åŸŸä¸ºvalueçš„æ–°èŠ‚ç‚¹
+	//ÔÚµ¥Á´±í×îºó¸½¼ÓÒ»Êı¾İÓòÎªvalueµÄĞÂ½Úµã
 	void append(const T& value) {
 		Node<T>* ptr = _getAddrAtPos(-1);
 		if (ptr)_insert(ptr, value);
 		else _insert(_head, value);
 	}
-	//åœ¨å•é“¾è¡¨æœ€åæŒ‰å‘é‡arrä¸­å†…å®¹é¡ºåºä¾æ¬¡é™„åŠ æ–°èŠ‚ç‚¹
-	void extend(const std::vector<T>& arr) {
+	//ÔÚµ¥Á´±í×îºó°´ÏòÁ¿arrÖĞÄÚÈİË³ĞòÒÀ´Î¸½¼ÓĞÂ½Úµã
+	void extend(const Vector<T>& arr) {
 		for (int i = 0; i < arr.size(); i++) {
 			append(arr[i]);
 		}
 	}
-	//åœ¨ä¸‹æ ‡ä¸ºindexå¤„æ’å…¥ä¸€æ•°æ®ä¸ºvalueçš„é“¾è¡¨èŠ‚ç‚¹
+	//ÔÚÏÂ±êÎªindex´¦²åÈëÒ»Êı¾İÎªvalueµÄÁ´±í½Úµã
 	bool insert(int index, const T& value) {
 		// Index greater or equal to 0
 		if (index == 0) {
@@ -94,11 +94,11 @@ public:
 		_insert(ptr, value);
 		return true;
 	}
-	//è·å¾—å•é“¾è¡¨å¤´èŠ‚ç‚¹
+	//»ñµÃµ¥Á´±íÍ·½Úµã
 	Node<T>* getHead() {
 		return _head;
 	}
-	//è¾“å‡ºé“¾è¡¨å†…å®¹
+	//Êä³öÁ´±íÄÚÈİ
 	void print() {
 		Node<T>* ptr = _head;
 		while (ptr->next) {
