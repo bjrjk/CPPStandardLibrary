@@ -2,7 +2,7 @@
 #define JACKREN_LIST
 
 #include "include.hpp"
-#include "node.hpp"
+#include "utility.hpp"
 #include "vector.hpp"
 
 //单链表定义

@@ -16,7 +16,8 @@ private:
 	//调整数组容量(_capacity)为size
 	void _resize(int size) {
 		T* newArr = new T[size];
-		std::memcpy(newArr, _arr, sizeof(T) * min(_size, size));
+		for (int i = 0; i < min(_size, size); i++)newArr[i] = _arr[i]; //改为深复制
+		//std::memcpy(newArr, _arr, sizeof(T) * min(_size, size));
 		delete[] _arr;
 		_arr = newArr;
 		_capacity = size;
@@ -37,7 +38,8 @@ public:
 		_capacity = v._size;
 		_size = v._size;
 		_arr = new T[_size];
-		std::memcpy(_arr, v._arr, sizeof(T) * _size);
+		for (int i = 0; i < _size; i++)_arr[i] = v._arr[i]; //改为深复制
+		//std::memcpy(_arr, v._arr, sizeof(T) * _size);
 	}
 	//向量大小
 	int size() const {
@@ -56,13 +58,18 @@ public:
 		_resize(size);
 		_size = size;
 	}
-	//重载=运算符，实现数组的浅复制
+	//数组元素清空
+	void clear() {
+		reserve(0);
+	}
+	//重载=运算符，实现数组的深复制
 	Vector& operator = (const Vector& v) {
 		delete[] _arr;
 		_capacity = v._size;
 		_size = v._size;
 		_arr = new T[_size];
-		std::memcpy(_arr, v._arr, sizeof(T) * _size);
+		for (int i = 0; i < _size; i++)_arr[i] = v._arr[i]; //改为深复制
+		//std::memcpy(_arr, v._arr, sizeof(T) * _size);
 		return *this;
 	}
 	//重载[]运算符，能够使访问更方便
