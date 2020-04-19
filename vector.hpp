@@ -4,6 +4,8 @@
 #include "include.hpp"
 #include "algorithm.hpp"
 
+template<typename T>
+inline T min(const T& v1, const T& v2);
 
 
 //向量定义
