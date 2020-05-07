@@ -1,9 +1,7 @@
 #ifndef JACKREN_PRIORITY_QUEUE
 #define JACKREN_PRIORITY_QUEUE
 
-#include "include.hpp"
 #include "vector.hpp"
-#include "algorithm.hpp"
 
 /*
 	Override operator < before using PriorityQueue, default Min-Heap

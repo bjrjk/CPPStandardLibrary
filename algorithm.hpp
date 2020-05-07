@@ -24,7 +24,7 @@ inline T max(const T& v1, const T& v2) {
 }
 
 template<typename T>
-void heapSort(Vector<T>& arr) {
+void heapSort(Vector<T>& arr) { //堆排序
 	PriorityQueue<T> pq(arr);
 	arr.clear();
 	while (!pq.empty()) {
@@ -34,7 +34,7 @@ void heapSort(Vector<T>& arr) {
 }
 
 template<typename T>
-int _quickSort_partition(Vector<T>& arr, int l, int r) {
+int _quickSort_partition(Vector<T>& arr, int l, int r) { //快速排序——分区
 	T pivot = arr[r];
 	while (l != r) {
 		while (arr[l] < pivot && l < r)l++;
@@ -47,7 +47,7 @@ int _quickSort_partition(Vector<T>& arr, int l, int r) {
 }
 
 template<typename T>
-void quickSort(Vector<T>& arr, int l, int r) {
+void quickSort(Vector<T>& arr, int l, int r) { //快速排序
 	if (r <= l)return;
 	int pivot = (l + r) >> 1;
 	swap(arr[pivot], arr[r]);
@@ -57,8 +57,42 @@ void quickSort(Vector<T>& arr, int l, int r) {
 }
 
 template<typename T>
-void quickSort(Vector<T>& arr) {
+void quickSort(Vector<T>& arr) { //快速排序
 	quickSort(arr, 0, arr.size() - 1);
+}
+
+template<typename T>
+int lower_bound(Vector<T>& arr, const T& v) { //二分查找 lower_bound，重载<
+	int l = 0, r = arr.size() - 1, mid;
+	while (l < r) {
+		mid = (l + r) / 2;
+		if (arr[mid] < v)l = mid + 1;
+		else r = mid;
+	}
+	return l;
+}
+
+template<typename T>
+int upper_bound(Vector<T>& arr, const T& v) { //二分查找 upper_bound，重载<
+	int l = 0, r = arr.size() - 1, mid;
+	while (l < r) {
+		mid = (l + r) / 2;
+		if (arr[mid] <= v)l = mid + 1;
+		else r = mid;
+	}
+	return l;
+}
+
+template<typename T>
+int binary_search(Vector<T>& arr, const T& v) { //二分查找 binary_search，重载<
+	int l = 0, r = arr.size() - 1, mid;
+	while (l <= r) {
+		mid = (l + r) / 2;
+		if (arr[mid] < v)l = mid + 1;
+		else if (v < arr[mid]) r = mid - 1;
+		else return mid;
+	}
+	return -1;
 }
 
 #endif

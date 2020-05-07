@@ -1,7 +1,6 @@
 #ifndef JACKREN_HUFFMAN_TREE
 #define JACKREN_HUFFMAN_TREE
 
-#include "include.hpp"
 #include "utility.hpp"
 #include "vector.hpp"
 #include "priority_queue.hpp"

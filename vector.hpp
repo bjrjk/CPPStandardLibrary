@@ -2,11 +2,6 @@
 #define JACKREN_VECTOR
 
 #include "include.hpp"
-#include "algorithm.hpp"
-
-template<typename T>
-inline T min(const T& v1, const T& v2);
-
 
 //向量定义
 template<typename T>
@@ -18,7 +13,7 @@ private:
 	//调整数组容量(_capacity)为size
 	void _resize(int size) {
 		T* newArr = new T[size];
-		for (int i = 0; i < min(_size, size); i++)newArr[i] = _arr[i]; //改为深复制
+		for (int i = 0; i < (_size < size ? _size : size); i++)newArr[i] = _arr[i]; //改为深复制
 		//std::memcpy(newArr, _arr, sizeof(T) * min(_size, size));
 		delete[] _arr;
 		_arr = newArr;

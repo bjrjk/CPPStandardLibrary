@@ -94,6 +94,18 @@ public:
 		_insert(ptr, value);
 		return true;
 	}
+	//查询链表中是否有value
+	bool query(const T& value, const T*& dataPtr) {
+		for (Node<T>* ptr = _head; ptr->next; ptr = ptr->next) {
+			Node<T>* curPtr = ptr->next;
+			if (curPtr->data == value) {
+				dataPtr = &(curPtr->data);
+				return true;
+			}
+		}
+		dataPtr = NULL;
+		return false;
+	}
 	//获得单链表头节点
 	Node<T>* getHead() {
 		return _head;
